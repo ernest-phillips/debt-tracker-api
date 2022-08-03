@@ -1,0 +1,23 @@
+services:
+  api:
+    build: .
+    tty: true
+    stdin_open: true
+    depends_on:
+      - db
+    ports:
+      - 3000:3000
+    volumes:
+      - .:/usr/src/app
+    environment:
+      DATABASE_URL: postgres://postgres:@db
+
+  db:
+    image: postgres:14.4
+    volumes:
+      - db-data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_HOST_AUTH_METHOD: trust
+
+volumes:
+  db-data:
