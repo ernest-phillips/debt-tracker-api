@@ -1,4 +1,11 @@
 class UsersController < ApplicationController
-  def new
+  def create
+    create_params
+  end
+
+  private
+
+  def create_params
+
   end
 end
