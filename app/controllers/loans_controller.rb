@@ -1,4 +1,4 @@
 class LoansController < ApplicationController
-  def new
+  def create
   end
 end
