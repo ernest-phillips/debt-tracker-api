@@ -1,0 +1,2 @@
+class Creditor < ApplicationRecord
+end
