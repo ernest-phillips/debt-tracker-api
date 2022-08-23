@@ -1,8 +1,12 @@
 # frozen_string_literal: true
 
 class User < ApplicationRecord
-  REGEX_PATTERN = /^[\\w!#$%&'*+/=?`{|}~^-]+(?:\\.[\\w!#$%&'*+/=?`{|}~^-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$/
-  def is_email_valid? email
-      email =~REGEX_PATTERN
+  validates :email, format: { with: URI::MailTo::EMAIL_REGEXP }
+  validate :email_validation
+
+  def email_validation
+    if email.blank?
+      errors.add(:email, "can't be blank")
+    end
   end
 end
