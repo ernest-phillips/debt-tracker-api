@@ -1,7 +1,7 @@
 FROM ruby:3.1.2-alpine
 WORKDIR /usr/src/app
 
-RUN apk add --no-cache --update \
+RUN apk add --no-cache  git --update \
   build-base \
   libpq-dev \
   libc6-compat \
