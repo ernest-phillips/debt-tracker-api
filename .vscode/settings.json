@@ -1,0 +1,5 @@
+{
+  "files.insertFinalNewline": true,
+  "files.trimTrailingWhitespace": true
+}
+// Should be ignored by git, but not by VSCode.
