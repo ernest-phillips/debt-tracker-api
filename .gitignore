@@ -10,25 +10,14 @@
 # Ignore all logfiles and tempfiles.
 /log/*
 /tmp/*
-!/log/.keep
-!/tmp/.keep
 
-# Ignore pidfiles, but keep the directory.
-/tmp/pids/*
-!/tmp/pids/
-!/tmp/pids/.keep
-
+!.keep
 
 # Ignore master key for decrypting credentials and more.
 /config/master.key
 
 ### VisualStudioCode ###
 .vscode/*
-!.vscode/settings.json
-!.vscode/tasks.json
-!.vscode/launch.json
-!.vscode/extensions.json
-!.vscode/*.code-snippets
 
 # Local History for Visual Studio Code
 .history/
