@@ -5,7 +5,7 @@ class CreateLoans < ActiveRecord::Migration[7.0]
       t.bigint :balance
       t.bigint :min_payment
       t.bigint :interest
-      t.description :text
+      t.text :description
       t.references :user, null: false, foreign_key: true
       t.references :creditor, null: false, foreign_key: true
 
