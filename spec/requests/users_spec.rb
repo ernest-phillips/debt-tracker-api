@@ -3,16 +3,9 @@
 require 'rails_helper'
 
 RSpec.describe 'Users', type: :request do
-  # describe "GET /new" do
-  # it "returns http success" do
-  #   get "/users/new"
-  #   expect(response).to have_http_status(:success)
-  # end
-  # end
-
   describe 'POST /users' do
-    it 'creates a new user' do
-      user_params = {
+    let(:user_params) do
+      {
         user: {
           email: 'user@email.com',
           password: 'password',
@@ -20,6 +13,7 @@ RSpec.describe 'Users', type: :request do
           last_name: 'Doe'
         }
       }
+    end
 
     it 'creates a new user' do
       expect{ post('/users', params: user_params) }.to change { User.count }.by(1)
@@ -39,7 +33,7 @@ RSpec.describe 'Users', type: :request do
       end
 
       it 'responds with 422 status code' do
-        post('/users', params: {user: {email: 'user@@emailcom'}})
+        post('/users', params: { user: { email: 'user@@emailcom' }})
 
         expect(response).to have_http_status(422)
       end
