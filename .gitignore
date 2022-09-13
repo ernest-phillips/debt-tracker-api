@@ -36,3 +36,4 @@
 # Ignore code-workspaces
 *.code-workspace
 .vscode/settings.json
+spec/example.txt
