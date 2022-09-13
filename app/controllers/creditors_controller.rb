@@ -1,16 +1,13 @@
 class CreditorsController < ApplicationController
-  def index
-  end
-
-  def show
-  end
 
   def create
+    Creditor.create!(create_params)
+    render json: { message: 'Creditor created' }, status: :created
   end
 
-  def update
-  end
+  private
 
-  def destroy
+  def create_params
+    params.require(:creditor).permit(:name, :url)
   end
 end
