@@ -3,7 +3,6 @@
 require 'rails_helper'
 
 RSpec.describe 'Creditors', type: :request do
-
   describe 'POST /creditors' do
     let(:creditor_params) do
       {
