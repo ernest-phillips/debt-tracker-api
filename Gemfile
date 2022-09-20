@@ -20,6 +20,7 @@ group :development, :test do
   gem 'pry-byebug', '~> 3.9'
   gem 'rspec-rails', '~> 6.0.0.rc1'
   gem 'rubocop-rails', '~> 2.15', '>= 2.15.2', require: false
+  gem 'factory_bot_rails', '~> 6.2'
 end
 
 group :development do
