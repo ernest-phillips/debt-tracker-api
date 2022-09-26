@@ -1,6 +1,6 @@
 class LoansController < ApplicationController
   def create
-    Loans.create!(loan_params)
+    Loan.create!(loan_params)
     render json: { message: 'Loan created' }, status: :created
   end
 
@@ -22,6 +22,6 @@ class LoansController < ApplicationController
   private
 
   def loan_params
-    params.require(:loan).permit(:name, :balance, :min_payment, :interest, :description)
+    params.require(:loan).permit(:name, :balance, :min_payment, :interest, :description, :creditor_id , :user_id)
   end
 end
