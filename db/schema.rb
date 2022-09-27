@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_08_30_170354) do
+ActiveRecord::Schema[7.0].define(version: 2022_09_27_203241) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -27,17 +27,17 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_30_170354) do
     t.bigint "min_payment"
     t.bigint "interest"
     t.text "description"
-    t.bigint "user_id", null: false
-    t.bigint "creditor_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "user_id"
+    t.bigint "creditor_id"
     t.index ["creditor_id"], name: "index_loans_on_creditor_id"
     t.index ["user_id"], name: "index_loans_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
     t.string "email", null: false
-    t.string "password"
+    t.string "password_digest"
     t.string "first_name", null: false
     t.string "last_name", null: false
     t.datetime "created_at", null: false
