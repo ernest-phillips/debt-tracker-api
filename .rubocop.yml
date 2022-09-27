@@ -10,3 +10,6 @@
 # See https://docs.rubocop.org/rubocop/configuration
 
 require: rubocop-rails
+Style/Documentation:
+  Enabled: false
+  
