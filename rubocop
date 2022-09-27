@@ -1,0 +1,4 @@
+#!/bin/sh
+docker-compose exec -T SERVICE_NAME_HERE bundle exec rubocop -c .rubocop.yml "$@"
+# or you can start container on each lint:
+# docker-compose run --no-deps --entrypoint= --rm SERVICE_NAME_HERE bundle exec rubocop -c .rubocop.yml "$@"
