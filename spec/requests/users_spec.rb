@@ -25,8 +25,8 @@ RSpec.describe 'Users', type: :request do
       expect(response).to have_http_status(201)
     end
 
-    context "when user already exists" do
-      let!(:user) { User.create(user_params[:user]) }
+    context "when user already exists" do    
+      let!(:user) { create(:user, user_params[:user]) }
 
       it 'does not create a new user' do
         expect{ post('/users', params: user_params) }.not_to change { User.count }
