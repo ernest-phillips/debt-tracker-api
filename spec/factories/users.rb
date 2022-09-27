@@ -6,8 +6,8 @@ FactoryBot.define do
       "person#{n}@example.com"
     end
 
-    Faker::Name.first_name
-    Faker::Name.last_name
+    first_name { Faker::Name.first_name}
+    last_name { Faker::Name.last_name }
 
   end
 end

@@ -1,6 +1,8 @@
 require 'faker'
 
 FactoryBot.define do
-  Faker::Company.name
-  Faker::Internet.url
+  factory :creditor do
+    name { Faker::Company.name }
+    url { Faker::Internet.url } 
+  end
 end
