@@ -16,6 +16,8 @@ gem 'puma', '~> 5.0'
 # gem "rack-cors"
 # An easy way to keep your users' passwords secure.
 gem 'bcrypt', '~> 3.1', '>= 3.1.18'
+# A way to manage user authentication in applications
+gem 'jwt'
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
