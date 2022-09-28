@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class AuthenticationsController < ApplicationController
   before_action :authorize_request, except: :create
 
