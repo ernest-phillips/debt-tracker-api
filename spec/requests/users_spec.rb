@@ -16,7 +16,7 @@ RSpec.describe 'Users', type: :request do
     end
 
     it 'creates a new user' do
-      expect{ post('/users', params: user_params) }.to change { User.count }.by(1)
+      expect { post('/users', params: user_params) }.to change { User.count }.by(1)
     end
 
     it 'responds with 201 status code when user is created' do
@@ -25,23 +25,23 @@ RSpec.describe 'Users', type: :request do
       expect(response).to have_http_status(201)
     end
 
-    context "when user already exists" do    
+    it 'responds with descriptive error message' do
+      post('/users', params: { user: { email: 'user@@emailcom', password: 'password' } })
+      json_response = JSON.parse(response.body).with_indifferent_access
+      expect(json_response[:error]).to eq('Validation failed: Email is invalid')
+    end
+
+    context 'when user already exists' do
       let!(:user) { create(:user, user_params[:user]) }
 
       it 'does not create a new user' do
-        expect{ post('/users', params: user_params) }.not_to change { User.count }
+        expect { post('/users', params: user_params) }.not_to(change { User.count })
       end
 
       it 'responds with 422 status code' do
-        post('/users', params: { user: { email: 'user@@emailcom' }})
+        post('/users', params: { user: { email: 'user@@emailcom' } })
 
         expect(response).to have_http_status(422)
-      end
-
-      it 'responds with descriptive error message' do
-        post('/users', params: {user: {email: 'user@@emailcom'}})
-        json_response = JSON.parse(response.body).with_indifferent_access
-        expect(json_response[:error]).to eq('Validation failed: Email is invalid')
       end
     end
   end
