@@ -6,5 +6,5 @@ Rails.application.routes.draw do
   resources :users, only: %i[create index update]
   resources :creditors, only: %i[index show create update destroy]
   resources :loans, only: %i[create index update destroy]
-  resources :authentications, only: %i[create]
+  resources :authentications, only: %i[create show]
 end
