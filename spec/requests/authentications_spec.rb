@@ -1,0 +1,33 @@
+# frozen_string_literal: true
+
+require 'rails_helper'
+
+RSpec.describe 'Authentications', type: :request do
+  describe 'POST /authentications' do
+    let(:user) { create(:user) }
+    let(:authentication_params) do
+      {
+        authentication: {
+          email: user.email,
+          password: user.password
+        }
+      }
+    end
+
+    def auth_headers(user)
+      token = JsonWebToken.encode(user_id: user.id)
+    end
+
+    it 'responds with 200 status code when authentication is successful' do
+      post('/authentications', params: authentication_params)
+
+      expect(response).to have_http_status(200)
+    end
+
+    it 'responds with 401 status code when authentication is unsuccessful' do
+      post('/authentications', params: { authentication: { email: 'user@@emailcom' } })
+
+      expect(response).to have_http_status(401)
+    end
+  end
+end
