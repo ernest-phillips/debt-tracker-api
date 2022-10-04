@@ -14,10 +14,6 @@ RSpec.describe 'Authentications', type: :request do
       }
     end
 
-    def auth_headers(user)
-      token = JsonWebToken.encode(user_id: user.id)
-    end
-
     it 'responds with 200 status code when authentication is successful' do
       post('/authentications', params: authentication_params)
 
