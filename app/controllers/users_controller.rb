@@ -2,7 +2,7 @@
 
 class UsersController < ApplicationController
   before_action :find_user, only: %i[show update]
-  before_action :authorize_request, except: :create
+  skip_before_action :authorize_request, only: :create
 
   def create
     User.create!(create_params)
