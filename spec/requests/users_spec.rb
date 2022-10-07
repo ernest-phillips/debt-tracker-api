@@ -43,6 +43,13 @@ RSpec.describe 'Users', type: :request do
 
         expect(response).to have_http_status(422)
       end
+
+      it 'responds with 403 status code if user does not match logged in user' do
+        create(:user)
+        get('/users/3')
+
+        expect(response).to have_http_status(403)
+      end
     end
   end
 end

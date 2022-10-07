@@ -4,6 +4,8 @@ class UsersController < ApplicationController
   before_action :find_user, only: %i[show update]
   skip_before_action :authorize_request, only: :create
 
+  attr_reader :user
+
   def create
     User.create!(create_params)
     render json: { message: 'User created' }, status: :created
@@ -13,7 +15,11 @@ class UsersController < ApplicationController
 
   # GET /users/{username}
   def show
-    render json: @user, status: :ok
+    if current_user != user
+      render json: { error: 'Forbidden' }, status: :forbidden
+    else
+      render json: user, status: :ok
+    end
   end
 
   def index
