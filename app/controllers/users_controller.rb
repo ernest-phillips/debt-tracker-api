@@ -28,6 +28,15 @@ class UsersController < ApplicationController
     render json: { message: 'User updated' }, status: :ok
   end
 
+  def destroy
+    if current_user != user
+      render json: { error: 'Forbidden' }, status: :forbidden
+    else
+      current_user.update(deleted_at: DateTime.now)
+      render json: { message: 'User deleted' }, status: :ok
+    end
+  end
+
   private
 
   def find_user
