@@ -15,15 +15,30 @@ RSpec.describe 'Authentications', type: :request do
     end
 
     it 'responds with 200 status code when authentication is successful' do
-      post('/authentications', params: authentication_params)
+      post('/login', params: authentication_params)
 
       expect(response).to have_http_status(200)
     end
 
     it 'responds with 401 status code when authentication is unsuccessful' do
-      post('/authentications', params: { authentication: { email: 'user@@emailcom' } })
+      post('/login', params: { authentication: { email: 'user@@emailcom' } })
 
       expect(response).to have_http_status(401)
+    end
+
+    it 'responds with 401 status code if user is not authenticated' do
+      post('/login', params: authentication_params)
+
+      get('/users/:id', headers: { 'Authorization' => 'invalid token' })
+
+      expect(response).to have_http_status(401)
+    end
+
+    it 'responds with 403 status if user is forbidden' do
+      post('/login', params: authentication_params)
+      get '/users/:id'
+
+      expect(response).to have_http_status(403)
     end
   end
 end
