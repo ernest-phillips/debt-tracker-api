@@ -4,17 +4,22 @@ require 'rails_helper'
 
 RSpec.describe 'Creditors', type: :request do
   describe 'POST /creditors' do
+    let(:user) { create(:user) }
     let(:creditor_params) do
       {
         creditor: {
           name: 'Big Bank',
-          url: 'https://www.bigbank.com',
+          url: 'https://www.bigbank.com'
         }
       }
     end
 
+    before do
+      allow(JsonWebToken).to receive(:decode).and_return({ user_id: user.id })
+    end
+
     it 'creates a new creditor' do
-      expect{ post('/creditors', params: creditor_params) }.to change { Creditor.count }.by(1)
+      expect { post('/creditors', params: creditor_params) }.to change { Creditor.count }.by(1)
     end
 
     it 'responds with 201 status code when creditor is created' do

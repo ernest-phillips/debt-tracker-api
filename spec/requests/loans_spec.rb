@@ -2,7 +2,6 @@ require 'rails_helper'
 
 RSpec.describe 'Loans', type: :request do
   describe 'POST /loans' do
-
     let(:loan) { create(:loan) }
     let(:creditor) { create(:creditor) }
     let(:user) { create(:user) }
@@ -21,13 +20,17 @@ RSpec.describe 'Loans', type: :request do
       }
     end
 
+    before do
+      allow(JsonWebToken).to receive(:decode).and_return({ user_id: user.id })
+    end
+
     it 'creates a new loan' do
-      expect{ post('/loans', params: loan_params) }.to change { Loan.count }.by(1)
+      expect { post('/loans', params: loan_params) }.to change { Loan.count }.by(1)
     end
 
     it 'deletes a loan' do
       loan = create(:loan)
-      expect{ delete("/loans/#{loan.id}") }.to change { Loan.count }.by(-1)
+      expect { delete("/loans/#{loan.id}") }.to change { Loan.count }.by(-1)
     end
 
     it 'updates a loan' do
@@ -36,7 +39,7 @@ RSpec.describe 'Loans', type: :request do
       expect(loan.reload.name).to eq(name)
     end
 
-    it 'returns a list of loans' do      
+    it 'returns a list of loans' do
       loans = create_list(:loan, 3)
       get('/loans')
       expect(response).to have_http_status(:ok)
