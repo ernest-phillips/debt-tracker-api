@@ -8,10 +8,6 @@ class UsersController < ApplicationController
     render json: { error: e.message }, status: :unprocessable_entity
   end
 
-  def index
-    render json: User.all
-  end
-
   def update
     user = User.find(params[:id])
     user.update!(update_params)
