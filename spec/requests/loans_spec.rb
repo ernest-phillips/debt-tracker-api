@@ -20,6 +20,10 @@ RSpec.describe 'Loans', type: :request do
       }
     end
 
+    before do
+      allow(JsonWebToken).to receive(:decode).and_return({ user_id: user.id })
+    end
+
     it 'creates a new loan' do
       expect { post('/loans', params: loan_params) }.to change { Loan.count }.by(1)
     end
