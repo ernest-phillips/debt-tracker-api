@@ -1,10 +1,7 @@
 # frozen_string_literal: true
 
 class UsersController < ApplicationController
-  before_action :find_user, only: %i[show update]
   skip_before_action :authorize_request, only: :create
-
-  attr_reader :user
 
   def create
     User.create!(create_params)
@@ -15,26 +12,32 @@ class UsersController < ApplicationController
 
   # GET /users/{username}
   def show
-    if current_user != user
+    if current_user.id != params[:id].to_i
       render json: { error: 'Forbidden' }, status: :forbidden
     else
-      render json: user, status: :ok
+      render json: current_user, status: :ok
     end
   end
 
   def update
-    user = User.find(params[:id])
-    user.update!(update_params)
-    render json: { message: 'User updated' }, status: :ok
+    if current_user.id != params[:id].to_i
+      render json: { error: 'Forbidden' }, status: :forbidden
+    else
+      current_user.update!(update_params)
+      render json: { message: 'User updated' }, status: :ok
+    end
+  end
+
+  def destroy
+    if current_user.id != params[:id].to_i
+      render json: { error: 'Forbidden' }, status: :forbidden
+    else
+      current_user.update(deleted_at: DateTime.now)
+      render json: { message: 'User deleted' }, status: :ok
+    end
   end
 
   private
-
-  def find_user
-    @user = User.find(params[:id])
-  rescue ActiveRecord::RecordNotFound
-    render json: { errors: 'User not found' }, status: :not_found
-  end
 
   def create_params
     params.require(:user).permit(:email, :password, :first_name, :last_name)
